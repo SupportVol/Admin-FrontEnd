@@ -4,9 +4,8 @@ from server import *
 @app.route("/api/news", methods=["GET"])
 def get_news():
     # Instantiate News class and call the get method
-    news = News(session["uid"])
+    news = News(None, session["uid"])
     news.get(True)
-
     return render_template("/news/news.html")
 
 
@@ -22,7 +21,7 @@ def create_news():
         community_id = request.form["communityID"]
 
         # Instantiate News class and call the create method
-        news = News(session["uid"])
+        news = News(None, session["uid"])
         news.create(title, description, tags, sender_uid, community_id)
 
     return render_template("/news/create_news.html")
@@ -32,7 +31,7 @@ def create_news():
 @app.route("/api/news/update/<string:news_id>/", methods=["PUT", "GET"])
 def update_news(news_id):
     # Instantiate News class with news ID and user UID
-    news = News(session["uid"], news_id)
+    news = News(news_id, session["uid"])
 
     if request.method == "PUT":
         # Extract news data from request form
@@ -44,7 +43,6 @@ def update_news(news_id):
 
         # Call the update method
         news.update(news_id, title, description, tags, sender_uid, community_id)
-
     news_details = news.get(False)
     return render_template("/news/update_news.html", details=news_details)
 
@@ -53,10 +51,10 @@ def update_news(news_id):
 @app.route("/api/news/delete/<string:news_id>/", methods=["DELETE"])
 def delete_news(news_id):
     # Instantiate News class with user UID
-    news = News(session["uid"])
+    news = News(news_id, session["uid"])
 
     # Call the delete method
-    news.delete(news_id)
+    news.delete("newsID")
 
     flash("News deleted successfully", "success")
     return redirect("/api/news")

@@ -5,8 +5,49 @@ This file has all of the small funtions which I use mostly
 import base64
 import smtplib
 from email.mime.text import MIMEText
-import requests
 from server import *
+
+
+class CRUD_Requests:
+    def __init__(self, uid, uniqueID=False, endpoint="/api/news"):
+        self.uniqueID = uniqueID
+        self.url = BASE_URL + endpoint
+        self.headers = {"uid": uid}
+
+    def get(self, get_all=False):
+        response = requests.get(
+            self.url,
+            headers=self.headers,
+            json={"apiKey": API_KEY, "all": getAll},
+        ).json()
+        return response["response"][1]
+
+    def create(self, **kwargs):
+        response = requests.post(
+            self.url,
+            headers=self.headers,
+            json={"apiKey": API_KEY, **kwargs},
+        ).json()
+        print(response)
+        return response["response"][1]
+
+    def update(self, **kwargs):
+        response = requests.put(
+            self.url,
+            headers=self.headers,
+            json={"apiKey": API_KEY, **kwargs},
+        ).json()
+        print(response)
+        return response["response"][1]
+
+    def delete(self, uniqueName):
+        response = requests.delete(
+            self.url,
+            headers=self.headers,
+            json={"apiKey": api_key, uniqueName: self.uniqueID},
+        ).json()
+        print(response)
+        return response["response"][1]
 
 
 def log_ip_address(url_trying_to_access: str, ip_address: str) -> None:

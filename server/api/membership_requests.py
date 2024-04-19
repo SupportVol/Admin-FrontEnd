@@ -13,18 +13,10 @@ class Membership_Requests:
             headers=self.headers,
             json={"all": getAll},
         ).json()
-        print(response)
         return response["response"][1]
 
-    def create(
+    def approve(
         self,
-        registrationCertificateUrl,
-        annualReportUrl,
-        legalDocumentsUrl,
-        name,
-        email,
-        password,
-        description,
     ):
         response = requests.post(
             self.url,
@@ -43,15 +35,8 @@ class Membership_Requests:
         print(response)
         return response["response"][1]
 
-    def update(
+    def decline(
         self,
-        registrationCertificateUrl,
-        annualReportUrl,
-        legalDocumentsUrl,
-        name,
-        email,
-        password,
-        description,
     ):
         response = requests.put(
             self.url,
@@ -66,15 +51,6 @@ class Membership_Requests:
                 "description": description,
                 "requestID": self.requestID,
             },
-        ).json()
-        print(response)
-        return response["response"][1]
-
-    def delete(self):
-        response = requests.delete(
-            self.url,
-            headers=self.headers,
-            json={"apiKey": API_KEY, "requestID": self.requestID},
         ).json()
         print(response)
         return response["response"][1]
