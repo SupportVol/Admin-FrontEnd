@@ -12,8 +12,10 @@ class Authentication:
             role_level = requests.get(
                 BASE_URL + "/api/usr/extradetails",
                 headers={"uid": uid},
-                json={"apiKey": API_KEY},
-            ).json()["response"][1]
+            )
+            print(role_level)
+            print(role_level.json())
+            role_level = role_level.json()
             if role_level["role"] == "Admin":
                 session["uid"] = uid
                 return True

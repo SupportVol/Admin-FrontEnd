@@ -5,7 +5,6 @@ class News(CRUD_Requests):
     def __init__(self, uid, newsID=False):
         super().__init__(uid, newsID, "/api/news")
 
-
 # {
 #     "newsID": self.newsID,
 #     "title": title,

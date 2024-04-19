@@ -11,7 +11,8 @@ from urllib3.util.retry import Retry
 app = Flask(__name__)  # init flask app
 app.debug = True
 app.secret_key = "SupportVol"  # secret key
-BASE_URL = "http://localhost:3000"
+# BASE_URL = "http://localhost:3000"
+BASE_URL = "https://supportvol-dot-support-vol.as.r.appspot.com"
 API_KEY = "VzruLfssZ17zQzGsVnlH"
 req_session = requests.Session()
 retry = Retry(connect=3, backoff_factor=0.5)

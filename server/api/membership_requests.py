@@ -11,7 +11,7 @@ class Membership_Requests:
         response = requests.get(
             self.url,
             headers=self.headers,
-            json={"apiKey": API_KEY, "all": getAll},
+            json={"all": getAll},
         ).json()
         return response["response"][1]
 
@@ -22,7 +22,13 @@ class Membership_Requests:
             self.url,
             headers=self.headers,
             json={
-                "apiKey": API_KEY,
+                "registrationCertificateUrl": registrationCertificateUrl,
+                "annualReportUrl": annualReportUrl,
+                "legalDocumentsUrl": legalDocumentsUrl,
+                "name": name,
+                "email": email,
+                "password": password,
+                "description": description,
                 "requestID": self.requestID,
             },
         ).json()
@@ -36,7 +42,13 @@ class Membership_Requests:
             self.url,
             headers=self.headers,
             json={
-                "apiKey": API_KEY,
+                "registrationCertificateUrl": registrationCertificateUrl,
+                "annualReportUrl": annualReportUrl,
+                "legalDocumentsUrl": legalDocumentsUrl,
+                "name": name,
+                "email": email,
+                "password": password,
+                "description": description,
                 "requestID": self.requestID,
             },
         ).json()
