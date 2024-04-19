@@ -11,7 +11,9 @@ class Ban:
         response = requests.get(
             self.url,
             headers=self.headers,
-            json={"banUID": self.user_id, "apiKey": API_KEY},
+            json={
+                "banUID": self.user_id,
+            },
         ).json()
         print(response)
         return response["response"][1]
@@ -20,7 +22,9 @@ class Ban:
         response = requests.post(
             self.url,
             headers=self.headers,
-            json={"banUID": self.user_id, "apiKey": API_KEY},
+            json={
+                "banUID": self.user_id,
+            },
         ).json()
         return response["response"][1]
 
@@ -28,13 +32,13 @@ class Ban:
         response = requests.put(
             self.url,
             headers=self.headers,
-            json={"banUID": self.user_id, "apiKey": API_KEY},
+            json={
+                "banUID": self.user_id,
+            },
         ).json()
         return response["response"][1]
 
     def get_all_users(self):
-        response = requests.get(
-            BASE_URL + "/api/auth/all", headers=self.headers, json={"apiKey": API_KEY}
-        )
+        response = requests.get(BASE_URL + "/api/auth/all", headers=self.headers)
         response = response.json()
         return response["response"][1]
