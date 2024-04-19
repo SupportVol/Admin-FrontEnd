@@ -11,7 +11,7 @@ class News:
         response = requests.get(
             self.url,
             headers=self.headers,
-            json={"apiKey": API_KEY, "all": getAll},
+            json={"all": getAll},
         ).json()
         print(response)
         return response["response"][1]
@@ -21,7 +21,6 @@ class News:
             self.url,
             headers=self.headers,
             json={
-                "apiKey": API_KEY,
                 "newsID": self.newsID,
                 "title": title,
                 "description": description,
@@ -38,7 +37,6 @@ class News:
             self.url,
             headers=self.headers,
             json={
-                "apiKey": API_KEY,
                 "newsID": self.newsID,
                 "title": title,
                 "description": description,
@@ -54,7 +52,7 @@ class News:
         response = requests.delete(
             self.url,
             headers=self.headers,
-            json={"apiKey": api_key, "newsID": self.newsID},
+            json={"newsID": self.newsID},
         ).json()
         print(response)
         return response["response"][1]

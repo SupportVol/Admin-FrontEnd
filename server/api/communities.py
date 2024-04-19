@@ -13,7 +13,7 @@ class Communities:
             headers=self.headers,
             json={
                 "communityuid": self.community_uid,
-                "apiKey": API_KEY,
+                
                 "all": display_all,
             },
         ).json()
@@ -25,7 +25,7 @@ class Communities:
             self.url,
             headers=self.headers,
             json={
-                "apiKey": API_KEY,
+                
                 "name": name,
                 "title": title,
                 "description": description,
@@ -43,7 +43,7 @@ class Communities:
             self.url,
             headers=self.headers,
             json={
-                "apiKey": API_KEY,
+                
                 "name": name,
                 "title": title,
                 "description": description,
@@ -60,7 +60,7 @@ class Communities:
         response = requests.delete(
             self.url,
             headers=self.headers,
-            json={"apiKey": API_KEY, "community_uid": self.community_uid},
+            json={"community_uid": self.community_uid},
         ).json()
         print(response)
         return response["response"][1]
