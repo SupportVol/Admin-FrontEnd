@@ -65,7 +65,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Deployment
 
-Admin Frontend is deployed and hosted on [Render](https://dashboard.render.com/web/srv-cogvoov79t8c73fpdfog/deploys/dep-coh1abf79t8c73fq84mg). Visit the live application [here](https://admin-frontend-cbjw.onrender.com/).
+Admin Frontend is deployed and hosted on [Render](https://admin-frontend-cbjw.onrender.com/). Visit the live application [here](https://admin-frontend-cbjw.onrender.com/).
 
 ## Support
 
