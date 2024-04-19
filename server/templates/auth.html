@@ -10,12 +10,41 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('styles',filename='auth.css') }}">
+    <style>
+      body {
+        background-color: #f8f9fa;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .card {
+        width: 400px;
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+
+      .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
+
+    </style>
   </head>
 
   <body>
+
     <div class="card">
       <div class="card-body">
+        {% if temp %}
+        <div class="alert alert-danger mt-3" role="alert">
+          Wrong credentials. Please try again.
+        </div>
+        {% endif %}
         <h5 class="card-title">Login</h5>
         <form action="/auth" method="POST">
           <div class="form-group">
@@ -28,11 +57,6 @@
           </div>
           <button type="submit" class="btn btn-primary">Login</button>
         </form>
-        {% if temp %}
-        <div class="alert alert-danger mt-3" role="alert">
-          Wrong credentials. Please try again.
-        </div>
-        {% endif %}
       </div>
     </div>
   </body>
