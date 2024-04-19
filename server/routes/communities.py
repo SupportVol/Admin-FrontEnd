@@ -25,7 +25,15 @@ def create_community():
 
         # Instantiate Communities class and call the create method
         communities = Communities(None, session["uid"])
-        communities.create(name, title, description, photo_url, banner, theme, members)
+        communities.create(
+            name=name,
+            title=title,
+            description=description,
+            photo_url=photo_url,
+            banner=banner,
+            theme=theme,
+            members=members,
+        )
     return render_template("/community/create_community.html")
 
 
@@ -43,15 +51,24 @@ def update_community(community_uid):
         theme = request.form["theme"]
         members = request.form["members"]
         # Instantiate Communities class and call the update method
-        communities.update(name, title, description, photo_url, banner, theme, members)
-    community = communities.get()
+        communities.update(
+            name=name,
+            title=title,
+            description=description,
+            photo_url=photo_url,
+            banner=banner,
+            theme=theme,
+            members=members,
+        )
+    community = communities.get(False)
     return render_template("/community/update_community.html", details=community)
 
 
 @app.route("/api/community/delete/<string:community_uid>", methods=["DELETE"])
+@app.route("/api/community/delete/<string:community_uid>/", methods=["DELETE"])
 def delete_community(community_uid):
     # Instantiate Communities class and call the delete method
-    communities = Communities(None, session["uid"])
-    communities.delete(community_uid)
+    communities = Communities(community_uid, session["uid"])
+    communities.delete("communityUID")
     flash("Community deleted successfully", "success")
     return redirect("/api/community")
