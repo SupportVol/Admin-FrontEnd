@@ -2,9 +2,6 @@ from flask import Flask
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-from server.help_funcs import *
-from server.api import *
-from server.routes import *
 
 """
 This module contains all the imports, initial configurations, and other main settings for the server.
@@ -38,3 +35,6 @@ req_session.mount("http://", adapter)
 req_session.mount("https://", adapter)
 
 # Import necessary modules from server package
+from server.help_funcs import *
+from server.api import *
+from server.routes import *
