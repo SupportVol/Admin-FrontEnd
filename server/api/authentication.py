@@ -36,13 +36,8 @@ class Authentication:
                 BASE_URL + "/api/usr/extradetails",
                 headers={"uid": uid},
             )
-
-            # Print the role level response for debugging
-            print(role_level_response)
-            print(role_level_response.json())
-
             # Parse the role level response
-            role_level = role_level_response.json()
+            role_level = role_level_response.json()["response"][1]
 
             # Check if the user is an admin
             if role_level["role"] == "Admin":
