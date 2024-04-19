@@ -1,28 +1,42 @@
-"""
-This file has all of the small funtions which I use mostly
-"""
-
 import base64
 import smtplib
+import datetime
 from email.mime.text import MIMEText
 from server import *
 
+"""
+This file contains utility functions and classes used throughout the application.
+"""
+
 
 class CRUD_Requests:
+    """
+    Class to handle CRUD operations.
+    """
+
     def __init__(self, uid, uniqueID=False, endpoint="/api/news"):
+        """
+        Initialize CRUD_Requests with uid, uniqueID and endpoint.
+        """
         self.uniqueID = uniqueID
         self.url = BASE_URL + endpoint
         self.headers = {"uid": uid}
 
     def get(self, get_all=False):
+        """
+        Get request to the server.
+        """
         response = requests.get(
             self.url,
             headers=self.headers,
-            json={"apiKey": API_KEY, "all": getAll},
+            json={"apiKey": API_KEY, "all": get_all},
         ).json()
         return response["response"][1]
 
     def create(self, **kwargs):
+        """
+        Create request to the server.
+        """
         response = requests.post(
             self.url,
             headers=self.headers,
@@ -32,6 +46,9 @@ class CRUD_Requests:
         return response["response"][1]
 
     def update(self, **kwargs):
+        """
+        Update request to the server.
+        """
         response = requests.put(
             self.url,
             headers=self.headers,
@@ -41,30 +58,21 @@ class CRUD_Requests:
         return response["response"][1]
 
     def delete(self, uniqueName):
+        """
+        Delete request to the server.
+        """
         response = requests.delete(
             self.url,
             headers=self.headers,
-            json={"apiKey": api_key, uniqueName: self.uniqueID},
+            json={"apiKey": API_KEY, "uniqueName": self.uniqueID},
         ).json()
         print(response)
         return response["response"][1]
 
 
-def log_ip_address(url_trying_to_access: str, ip_address: str) -> None:
-    db = cluster["ips"]
-    collection = db["ips"]
-    collection.insert_one(
-        {
-            "ip_address": ip_address,
-            "url_trying_to_access": url_trying_to_access,
-            "time": datetime.datetime.now(),
-        }
-    )
-
-
 def encode(message: str) -> bytes:
     """
-    Encode string for privacy and encryption.
+    Encode a string for privacy and encryption.
     """
     msg_bytes = message.encode("latin-1")
     string_bytes = base64.b64encode(msg_bytes)
@@ -74,7 +82,7 @@ def encode(message: str) -> bytes:
 
 def decode(message: str) -> bytes:
     """
-    Decode string for privacy and encryption.
+    Decode a string for privacy and encryption.
     """
     msg_bytes = message.encode("latin-1")
     string_bytes = base64.b64decode(msg_bytes)
@@ -82,26 +90,8 @@ def decode(message: str) -> bytes:
     return string
 
 
-def send_email(subject: str, email_to: str, body: str) -> None:
-    """
-    Send Emails for 2 fac auth and other notifications
-    """
-    EmailAdd = "ranugagamage@gmail.com"
-    Pass = "Ranuga D 2008"
-    msg = MIMEText(body, "html")
-    msg["Subject"] = subject
-    msg["From"] = EmailAdd
-    msg["To"] = email_to
-    try:
-        s = smtplib.SMTP_SSL(host="smtp.gmail.com", port=465)
-        s.login(user=EmailAdd, password=Pass)
-        s.sendmail(EmailAdd, email_to, msg.as_string())
-        s.quit()
-    except:
-        server = smtplib.SMTP_SSL("smtp.googlemail.com", 465)
-        server.login(EmailAdd, Pass)
-        server.sendemail(EmailAdd, email_to, msg.as_string())
-
-
 def login_verification():
+    """
+    Verify if the user is logged in.
+    """
     return "uid" in session
